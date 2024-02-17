@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -40,6 +41,15 @@ class ProductController extends Controller
         ];
 
         $request->validate($rules, $messages);
+
+        $product = new Product();
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->save();
+
+        return response()->json([
+            'status' => 'success',
+        ]);
     }
 
     /**
