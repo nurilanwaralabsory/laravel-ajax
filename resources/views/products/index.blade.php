@@ -13,7 +13,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <h2 class="my-3 text-center">Abzhor App</h2>
-                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addModal">
                  <i class="fa-solid fa-circle-plus"></i> Add Product
                 </button>
                 <div class="table-data">

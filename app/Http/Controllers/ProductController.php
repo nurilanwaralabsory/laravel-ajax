@@ -28,7 +28,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required|unique:products',
+            'price' => 'required',
+        ];
+
+        $messages = [
+            'name.required' => 'Product name is required',
+            'name.unique' => 'Product Already Exist',
+            'price.required' => 'Product price is required'
+        ];
+
+        $request->validate($rules, $messages);
     }
 
     /**
