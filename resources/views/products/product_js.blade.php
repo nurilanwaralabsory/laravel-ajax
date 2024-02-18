@@ -27,21 +27,74 @@
               if(res.status == 'success') {
                 $('#addModal').modal('hide');
                 Swal.fire({
-                  title: 'Error!',
-                  text: 'Do you want to continue',
-                  icon: 'error',
-                  confirmButtonText: 'Cool'
+                  title: 'Success!',
+                  text: 'Product added successfully',
+                  icon: 'success'
                 })
                 $('#addProductForm')[0].reset();
+                $('.table').load(location.href+' .table');
               }
             },
             error: function(err) {
               let error = err.responseJSON;
-              $.each(error.errors, function(index, value){
-                $('.errMsg').append('<span class="text-danger">'+value+'</span>');
+              $('.errMsg').empty();
+              $.each(error.errors, function(fieldName, message){
+                let $inputElement = $('[name="' + fieldName + '"]');
+                $inputElement.after('<span class="text-danger errMsg">'+message+'</span>');
               });
             }
           });
-        })
-      })
+        });
+        // show product value in update modal form
+        $(document).on('click', '.update_product_form', function(e) {
+          e.preventDefault();
+          let id = $(this).data('id');
+          let name = $(this).data('name');
+          let price = $(this).data('price');
+
+          $('#up_id').val(id);
+          $('#up_name').val(name);
+          $('#up_price').val(price);
+        });
+
+        // update product data
+        $(document).on('click', '.update_product', function(e) {
+          e.preventDefault();
+          let up_id = $('#up_id').val();
+          let up_name = $('#up_name').val();
+          let up_price = $('#up_price').val();
+          $.ajax({
+            url: "{{ url('products') }}" + '/' + up_id,
+            method: 'POST',
+            headers: {
+              'X-HTTP-Method-Override': 'PUT'
+            },
+            data: {
+              up_id: up_id,
+              up_name: up_name,
+              up_price: up_price,
+            },
+            success: function(res){
+              if(res.status == 'success') {
+                $('#updateModal').modal('hide');
+                Swal.fire({
+                  title: 'Success!',
+                  text: 'Product update successfully',
+                  icon: 'success'
+                })
+                $('#updateProductForm')[0].reset();
+                $('.table').load(location.href+' .table');
+              }
+            },
+            error: function(err) {
+              let error = err.responseJSON;
+              $('.errMsg').empty();
+              $.each(error.errors, function(fieldName, message){
+                let $inputElement = $('[name="' + fieldName + '"]');
+                $inputElement.after('<span class="text-danger errMsg">'+message+'</span>');
+              });
+            }
+          });
+        });
+      });
     </script>

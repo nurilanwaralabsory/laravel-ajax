@@ -27,23 +27,36 @@
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach ($products as $product)
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->price }}</td>
                             <td style="width: 20%">
-                              <button class="btn btn-info"><i class="fa-solid fa-circle-info text-white"></i></button>
-                              <button class="btn btn-warning"><i class="fa-solid fa-square-pen text-white"></i></button>
+                              <button 
+                                class="btn btn-warning update_product_form" 
+                                type="button" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#updateModal"
+                                data-id="{{ $product->id }}"
+                                data-name="{{ $product->name }}"
+                                data-price="{{ $product->price }}"
+                                >
+                                  <i class="fa-solid fa-square-pen text-white"></i>
+                              </button>
                               <button class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i></button>
                             </td>
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
+                      {{ $products->links() }}
                 </div>
             </div>
         </div>
     </div>
     @include('products.add_product_modal')
+    @include('products.update_product_modal')
     @include('products.product_js')
   </body>
 </html>
