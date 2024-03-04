@@ -9,13 +9,13 @@
   </head>
   <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-2"></div>
+      <div class="row flex justify-content-center">
             <div class="col-md-8">
                 <h2 class="my-3 text-center">Abzhor App</h2>
                 <button type="button" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#addModal">
                  <i class="fa-solid fa-circle-plus"></i> Add Product
                 </button>
+                <input type="text" id="search" name="search" class="mb-3 form-control" placeholder="Search here...">
                 <div class="table-data">
                     <table class="table">
                         <thead>
@@ -44,13 +44,18 @@
                                 >
                                   <i class="fa-solid fa-square-pen text-white"></i>
                               </button>
-                              <button class="btn btn-danger"><i class="fa-solid fa-trash text-white"></i></button>
+                              <button class="btn btn-danger delete_product" 
+                                type="button" 
+                                data-id="{{ $product->id }}"
+                                data-name="{{ $product->name }}">
+                                <i class="fa-solid fa-trash text-white"></i>
+                              </button>
                             </td>
                           </tr>
                           @endforeach
                         </tbody>
                       </table>
-                      {{ $products->links() }}
+                      {{ $products->withQueryString()->links() }}
                 </div>
             </div>
         </div>
